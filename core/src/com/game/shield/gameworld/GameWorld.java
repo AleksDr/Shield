@@ -162,7 +162,7 @@ public class GameWorld {
 		//Updates projectiles
 		for(int i = 0; i < amountOfProjectiles_; i++)
 		{
-			//Checks if this projectile in arry exists
+			//Checks if this projectile in the  array exists
 			//if no - creates it with some chance
 			if(!projectiles_[i].getStatus())
 			{
@@ -175,7 +175,7 @@ public class GameWorld {
 			else
 			{
 				//Moves projectile
-				projectiles_[i].moveProjectile(midPointX_, midPointY_, delta)
+				projectiles_[i].moveProjectile(midPointX_, midPointY_, delta);
 				//If it reaches the shield checks the collision with it
 				if(projectiles_[i].distance(midPointY_, midPointX_) <= shield_.getRadius())
 				{
