@@ -95,7 +95,9 @@ public class GameRenderer
         else if (world_.isGameOver())
         {
         	AssetLoader.font_.draw(batcher, "Game Over", world_.getMidPointX()-75, world_.getMidPointY()-15);
-        	AssetLoader.font_.draw(batcher, "Try again?", world_.getMidPointX()-70, world_.getMidPointY()+15);    
+        	AssetLoader.font_.draw(batcher, "Try again?", world_.getMidPointX()-70, world_.getMidPointY()+15);
+            String score = "score: " + world_.getScore() + "";
+            AssetLoader.font_.draw(batcher, score, 15, 15);
         }
         batcher.end();
 

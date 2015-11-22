@@ -144,7 +144,6 @@ public class GameWorld {
 			break;
 			
 		case RUNNING:
-		default:
 			updateRunning(delta);
 		break;
 	    }
@@ -208,8 +207,9 @@ public class GameWorld {
 						// If it was "damaging" - the game is over
 						else
 						{
-							currentState_ = GameState.GAMEOVER; //changes the current game state to GAMEOVER
 							AssetLoader.gameOver_.play(); //sound of GameOver
+							currentState_ = GameState.GAMEOVER; //changes the current game state to GAMEOVER
+								
 						}
 					}
 				}
