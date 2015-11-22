@@ -79,7 +79,7 @@ public class GameRenderer
         			else
         				shapeRenderer.setColor(0, 0, 0, 0);
         			//Draw projectiles
-        			shapeRenderer.circle(projectiles_[i].getPositionX(), projectiles_[i].getPositionY(), Math.abs((float)projectiles_[i].getValue()*2), 60);
+        			shapeRenderer.circle(projectiles_[i].getPositionX(), projectiles_[i].getPositionY(), Math.abs((float)projectiles_[i].getValue()), 60);
         			shapeRenderer.end();
         		}
         	}

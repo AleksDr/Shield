@@ -185,7 +185,7 @@ public class GameWorld {
 						
 						//Changes the capacity of the shield
 						if(projectiles_[i].getValue()<0)
-							shield_.changeCapacity(projectiles_[i].getValue()*2);
+							shield_.changeCapacity(projectiles_[i].getValue()/2);
 						else
 							shield_.changeCapacity(projectiles_[i].getValue());
 						

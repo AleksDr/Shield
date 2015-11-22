@@ -27,9 +27,9 @@ public class Projectiles {
 	{
 		status_ = true;
 		if((int)(Math.random()*100)<=10)
-			value_ = 8;
+			value_ = 12;
 		else
-			value_ = -(1 + (int)(Math.random() * 3));
+			value_ = -(1 + (int)(Math.random() * 3))*2;
 		
 		angle_ = (float)Math.random()* 360;
 		sinAngle_ = (float)Math.sin(angle_ * Math.PI / 180);
