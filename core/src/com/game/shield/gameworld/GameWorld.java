@@ -165,7 +165,7 @@ public class GameWorld {
 			//if no - creates it with some chance
 			if(!projectiles_[i].getStatus())
 			{
-				if(Math.random()>=1.00-((float)(score_+10)/50000))
+				if(Math.random()>=0.9995-((float)(score_+10)/50000))
 				{
 					projectiles_[i] = new Projectiles (midPointX_, midPointY_, Math.max(midPointX_*2, midPointY_*2));
 				}

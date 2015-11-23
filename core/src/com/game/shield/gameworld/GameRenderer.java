@@ -50,21 +50,29 @@ public class GameRenderer
         //Draws game objects if the game is running
         if(world_.isRunning())
         {
+        	
+        	//Draws score
         	batcher.begin();
             String score = "score: " + world_.getScore() + "";
             AssetLoader.font_.draw(batcher, score, 15, 15);
             batcher.end();
             
+            //Draws circle
+        	shapeRenderer.begin(ShapeType.Line);
+        	shapeRenderer.setColor(125/255f, 125/255f, 125/255f, 0);
+        	shapeRenderer.circle(world_.getMidPointX(), world_.getMidPointY(), world_.getShield().getRadius(), 100);
+        	shapeRenderer.end();
+            
             //It's duct tape code, will be fixed later
             //Draws 2 arcs - inner (color of the back) and outer (blue color)
         	shapeRenderer.begin(ShapeType.Filled);
         	shapeRenderer.setColor(0, 0, 1, 0);
-        	shapeRenderer.arc(world_.getMidPointX(), world_.getMidPointY(), world_.getShield().getRadius(), 360 - world_.getShield().getAngle() - world_.getShield().getCapacity()/2, world_.getShield().getCapacity(), 20);
+        	shapeRenderer.arc(world_.getMidPointX(), world_.getMidPointY(), world_.getShield().getRadius(), 360 - world_.getShield().getAngle() - world_.getShield().getCapacity()/2, world_.getShield().getCapacity(), 100);
         	shapeRenderer.end();
 
         	shapeRenderer.begin(ShapeType.Filled);
         	shapeRenderer.setColor(1, 1, 1, 0);
-        	shapeRenderer.arc(world_.getMidPointX(), world_.getMidPointY(), world_.getShield().getRadius()-5, (360 - world_.getShield().getAngle()) - world_.getShield().getCapacity()/2, world_.getShield().getCapacity(), 20);
+        	shapeRenderer.arc(world_.getMidPointX(), world_.getMidPointY(), world_.getShield().getRadius()-5, (360 - world_.getShield().getAngle()) - world_.getShield().getCapacity()/2, world_.getShield().getCapacity(), 100);
         	shapeRenderer.end();
         	
         	//Draws projectiles
