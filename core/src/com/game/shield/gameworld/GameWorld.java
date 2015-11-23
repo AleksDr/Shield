@@ -187,7 +187,7 @@ public class GameWorld {
 						if(projectiles_[i].getValue()<0)
 							shield_.changeCapacity(projectiles_[i].getValue()/2);
 						else
-							shield_.changeCapacity(projectiles_[i].getValue());
+							shield_.changeCapacity(projectiles_[i].getValue()*1.5);
 						
 						projectiles_[i].setStatus(false); //destroyes the projectile
 						score_++; //increases the score
@@ -199,7 +199,7 @@ public class GameWorld {
 						// If it was "healing" projectile - game continues, shield recovers
 						if(projectiles_[i].getValue()>0)
 						{
-							shield_.changeCapacity(projectiles_[i].getValue()*2); //changes the capacity of the shield
+							shield_.changeCapacity(projectiles_[i].getValue()*3); //changes the capacity of the shield
 							projectiles_[i].setStatus(false); //destroyes the projectile
 							score_++; //increases the score
 							AssetLoader.collision_.play(); //sound of collision
