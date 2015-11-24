@@ -187,7 +187,7 @@ public class GameWorld {
 						if(projectiles_[i].getValue()<0)
 							shield_.changeCapacity(projectiles_[i].getValue()/2);
 						else
-							shield_.changeCapacity(projectiles_[i].getValue()*1.5);
+							shield_.changeCapacity((float)(projectiles_[i].getValue()*1.5));
 						
 						projectiles_[i].setStatus(false); //destroyes the projectile
 						score_++; //increases the score
