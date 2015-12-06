@@ -97,7 +97,7 @@ public class Projectiles {
 		status_ = false;
 	}
 	
-	//
+	//Initialize projectile's fields
 	public void restart(int midPointX, int midPointY, int radius)
 	{
 		status_ = true;

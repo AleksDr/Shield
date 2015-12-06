@@ -41,6 +41,7 @@ public class GameRenderer
 	//-------------------------------------
 	//Other methods
 	
+	//Renders shield
 	public void renderShield()
 	{
 		 //Draws circle
@@ -62,6 +63,7 @@ public class GameRenderer
     	shapeRenderer.end();
 	}
 	
+	//Renders the message about current score
 	public void renderScore()
 	{
     	shapeRenderer.begin(ShapeType.Line);
@@ -74,11 +76,12 @@ public class GameRenderer
         batcher.end();
 	}
 	
+	//Renders sound switching button
 	public void renderSoundButton()
 	{
 		shapeRenderer.begin(ShapeType.Line);
     	shapeRenderer.setColor(0, 0, 1, 0);
-    	shapeRenderer.rect(world_.getMidPointX(), 0, world_.getMidPointX(), 40);
+    	shapeRenderer.rect(world_.getMidPointX(), 0, world_.getMidPointX()+1, 40);
     	shapeRenderer.end();
         batcher.begin();
         String line;
@@ -90,6 +93,8 @@ public class GameRenderer
         batcher.end();
 	}
 	
+	
+	//Renders all active projectiles
 	public void renderProjectiles()
 	{
 		for(int i = 0; i<world_.getAmOfProjectiles(); i++)
@@ -109,6 +114,7 @@ public class GameRenderer
     	}
 	}
 	
+	//Renders the message "Game over"
 	public void renderGameOverScreen()
 	{
 		batcher.begin();
@@ -117,6 +123,7 @@ public class GameRenderer
         batcher.end();
 	}
 	
+	//Renders the message about new highest score
 	public void renderHighScore()
 	{
 		batcher.begin();
@@ -129,28 +136,24 @@ public class GameRenderer
         batcher.end();
 	}
 	
+	//Method which calls other render methods depending on game status
 	public void render() 
 	{
        //Sets back color to white
         Gdx.gl.glClearColor(1, 1, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         	
-        renderScore();
-        renderSoundButton();
         if(world_.isRunning())
         {
-        	renderShield();
         	renderProjectiles();
+        	renderShield();
         }
-        
-        //Draws the message "Touch me" at the start of the application
-        if (world_.isReady()) 
+        else if (world_.isReady()) 
         {
         	batcher.begin();
             AssetLoader.font_.draw(batcher, "Touch me", world_.getMidPointX(), world_.getMidPointY(), 0, 1, false);
             batcher.end();
         } 
-        //Draws the messages "Game over" and "Try again" if the user lost
         else if (world_.isGameOver())
         {
         	renderGameOverScreen();
@@ -159,6 +162,8 @@ public class GameRenderer
         {
         	renderHighScore();
         }
+        renderScore();
+        renderSoundButton();
 
 
     }
