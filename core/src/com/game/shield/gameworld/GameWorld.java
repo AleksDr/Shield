@@ -247,6 +247,7 @@ public class GameWorld {
 				            }
 							else
 							currentState_ = GameState.GAMEOVER; //changes the current game state to GAMEOVER
+							return;
 								
 						}
 					}

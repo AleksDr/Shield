@@ -66,21 +66,29 @@ public class GameRenderer
 	//Renders the message about current score
 	public void renderScore()
 	{
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(192/255f, 192/255f, 192/255f, 0);
+    	shapeRenderer.rect(0, 0, world_.getMidPointX(), 40);
+    	shapeRenderer.end();
     	shapeRenderer.begin(ShapeType.Line);
-    	shapeRenderer.setColor(0, 0, 1, 0);
+    	shapeRenderer.setColor(0, 0, 0, 0);
     	shapeRenderer.rect(0, 0, world_.getMidPointX(), 40);
     	shapeRenderer.end();
         batcher.begin();
         String score = "score: " + world_.getScore() + "";
-        AssetLoader.font_.draw(batcher, score, 15, 10);
+        AssetLoader.font_.draw(batcher, score, 5, 10);
         batcher.end();
 	}
 	
 	//Renders sound switching button
 	public void renderSoundButton()
 	{
+		shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(192/255f, 192/255f, 192/255f, 0);
+    	shapeRenderer.rect(world_.getMidPointX(), 0, world_.getMidPointX()+1, 40);
+    	shapeRenderer.end();
 		shapeRenderer.begin(ShapeType.Line);
-    	shapeRenderer.setColor(0, 0, 1, 0);
+    	shapeRenderer.setColor(0, 0, 0, 0);
     	shapeRenderer.rect(world_.getMidPointX(), 0, world_.getMidPointX()+1, 40);
     	shapeRenderer.end();
         batcher.begin();
