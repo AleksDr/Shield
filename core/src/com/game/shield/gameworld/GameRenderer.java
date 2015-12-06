@@ -145,8 +145,8 @@ public class GameRenderer
         	
         if(world_.isRunning())
         {
-        	renderProjectiles();
         	renderShield();
+        	renderProjectiles();
         }
         else if (world_.isReady()) 
         {

@@ -110,8 +110,8 @@ public class Projectiles {
 		sinAngle_ = (float)Math.sin(angle_ * Math.PI / 180);
 		cosAngle_ = (float)Math.cos(angle_ * Math.PI / 180);
 		position_ = new Vector2 (midPointX + cosAngle_ * radius, midPointY + sinAngle_* radius);
-		float temp = (float)Math.random() * 100 + 40;
-		speed_ = new Vector2 (temp * cosAngle_ / value_, temp * sinAngle_ / value_);
+		float temp = (float)( (Math.random() * 100 + 50) / Math.sqrt(Math.abs(value_)));
+		speed_ = new Vector2 (temp * cosAngle_, temp * sinAngle_ );
 	}
 	
 	//Returns distance between projectile and mid
