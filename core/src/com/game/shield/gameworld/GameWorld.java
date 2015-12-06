@@ -1,26 +1,28 @@
 package com.game.shield.gameworld;
 
-import com.badlogic.gdx.Gdx;
 import com.game.shield.objects.Projectiles;
 import com.game.shield.objects.Shield;
-import com.game.shield.helpers.AssetLoader;;
+import com.game.shield.helpers.AssetLoader;
 
 public class GameWorld {
 	
 	//-------------------------------------
 	//Fields
 	
-	private final int amountOfProjectiles_ = 20;
+	private final int AMOUNT_OF_PROJECTILES = 20;
 	private Shield shield_;
 	private Projectiles projectiles_[];
 	private int midPointX_;
 	private int midPointY_;
 	private int score_;
 	private GameState currentState_;
+	private boolean sound_;
 	
-	public enum GameState {
-	    READY, RUNNING, GAMEOVER
+	public enum GameState 
+	{
+	    READY, RUNNING, GAMEOVER, HIGHSCORE
 	}
+	
 	
 	//-------------------------------------
 	//Constructors, getters, setters
@@ -28,15 +30,16 @@ public class GameWorld {
 	public GameWorld (int midPointX, int midPointY)
 	{
 		currentState_ = GameState.READY;
-		projectiles_ = new Projectiles [amountOfProjectiles_];
-		for( int i = 0; i < amountOfProjectiles_; i++)
+		projectiles_ = new Projectiles [AMOUNT_OF_PROJECTILES];
+		for( int i = 0; i < AMOUNT_OF_PROJECTILES; i++)
 		{
 			projectiles_[i] = new Projectiles ();
 		}
-		shield_ = new Shield (60, 270, 50);
+		shield_ = new Shield (AssetLoader.shieldCapacity_, 270, 50);
 		midPointX_ = midPointX;
 		midPointY_ = midPointY;
 		score_ = 0;
+		sound_ = true;
 	}
 	
 	public int getScore()
@@ -51,7 +54,7 @@ public class GameWorld {
 	
 	public int getAmOfProjectiles()
 	{
-		return amountOfProjectiles_;
+		return AMOUNT_OF_PROJECTILES;
 	}
 	
 	public Projectiles[] getProjectiles()
@@ -67,6 +70,11 @@ public class GameWorld {
 	public int getMidPointY()
 	{
 		return midPointY_;
+	}
+	
+	public boolean getSound()
+	{
+		return sound_;
 	}
 	
 	public void setShield(Shield shield)
@@ -94,6 +102,11 @@ public class GameWorld {
 		score_ = score;
 	}
 	
+	public void getSound(boolean sound)
+	{
+		sound_ = sound;
+	}
+	
 	//-------------------------------------
 	//Other methods
 	
@@ -115,6 +128,11 @@ public class GameWorld {
 		return currentState_ == GameState.READY;
 	}
 	
+	//Returns TRUE if state of the game is HIGHSCORE
+	public boolean isHighScore() {
+	    return currentState_ == GameState.HIGHSCORE;
+	}
+	
 	//Changes the state of the game to RUNNING
 	public void start()
 	{
@@ -126,12 +144,21 @@ public class GameWorld {
 	public void reStart()
 	{
 		start();
-		for( int i = 0; i < amountOfProjectiles_; i++)
+		for( int i = 0; i < AMOUNT_OF_PROJECTILES; i++)
 		{
-			projectiles_[i] = new Projectiles ();
+			projectiles_[i].restartDefault();
 		}
-		shield_ = new Shield (60, 270, 50);
+		shield_ = new Shield (AssetLoader.shieldCapacity_, 270, 50);
 		score_ = 0;
+	}
+	
+	//Changes the state of the game to RUNNING
+	public void soundSwitch()
+	{
+		if(sound_==false)
+			sound_ = true;
+		else
+			sound_ = false;
 	}
 	
 	//Updates the game due to it current state
@@ -145,7 +172,9 @@ public class GameWorld {
 			
 		case RUNNING:
 			updateRunning(delta);
-		break;
+			break;
+		default:
+			break;
 	    }
 	}
 
@@ -159,7 +188,7 @@ public class GameWorld {
 	public void updateRunning(float delta) 
 	{
 		//Updates projectiles
-		for(int i = 0; i < amountOfProjectiles_; i++)
+		for(int i = 0; i < AMOUNT_OF_PROJECTILES; i++)
 		{
 			//Checks if this projectile in the  array exists
 			//if no - creates it with some chance
@@ -167,20 +196,21 @@ public class GameWorld {
 			{
 				if(Math.random()>=0.9995-((float)(score_+10)/50000))
 				{
-					projectiles_[i] = new Projectiles (midPointX_, midPointY_, Math.max(midPointX_*2, midPointY_*2));
+					projectiles_[i].restart(midPointX_, midPointY_+20, Math.max(midPointX_*2, (midPointY_+20)*2));
 				}
 			}
 			//if yes - moves it and checks the collision with the shield
 			else
 			{
 				//Moves projectile
-				projectiles_[i].moveProjectile(midPointX_, midPointY_, delta);
+				projectiles_[i].moveProjectile(midPointX_, midPointY_+20, delta);
 				//If it reaches the shield checks the collision with it
-				if(projectiles_[i].distance(midPointY_, midPointX_) <= shield_.getRadius())
+				if(projectiles_[i].distance(midPointX_, midPointY_+20) <= shield_.getRadius())
 				{
 					//If it hits the shield...
 					if(projectiles_[i].isCollision(shield_.getAngle(), shield_.getCapacity()))
 					{
+						if(sound_)
 						AssetLoader.collision_.play(); //sound of collision
 						
 						//Changes the capacity of the shield
@@ -202,12 +232,20 @@ public class GameWorld {
 							shield_.changeCapacity(projectiles_[i].getValue()*3); //changes the capacity of the shield
 							projectiles_[i].setStatus(false); //destroyes the projectile
 							score_++; //increases the score
+							if(sound_)
 							AssetLoader.collision_.play(); //sound of collision
 						}
 						// If it was "damaging" - the game is over
 						else
 						{
+							if(sound_)
 							AssetLoader.gameOver_.play(); //sound of GameOver
+							if (score_ > AssetLoader.getHighScore()) //changes the current game state to HIGHSCORE if score_ > highscore
+							{
+				                AssetLoader.setHighScore(score_);
+				                currentState_ = GameState.HIGHSCORE;
+				            }
+							else
 							currentState_ = GameState.GAMEOVER; //changes the current game state to GAMEOVER
 								
 						}

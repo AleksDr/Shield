@@ -23,22 +23,6 @@ public class Projectiles {
 		status_ = false;
 	}
 	
-	public Projectiles(int midPointX, int midPointY, int radius)
-	{
-		status_ = true;
-		if((int)(Math.random()*100)<=10)
-			value_ = 12;
-		else
-			value_ = -(1 + (int)(Math.random() * 3))*2;
-		
-		angle_ = (float)Math.random()* 360;
-		sinAngle_ = (float)Math.sin(angle_ * Math.PI / 180);
-		cosAngle_ = (float)Math.cos(angle_ * Math.PI / 180);
-		position_ = new Vector2 (midPointX + cosAngle_ * radius, midPointY + sinAngle_* radius);
-		float temp = (float)Math.random() * 100 + 30;
-		speed_ = new Vector2 (temp * cosAngle_, temp * sinAngle_); //1 + Math.random() * 5
-	}
-	
 	public int getValue()
 	{
 		return value_;
@@ -107,8 +91,31 @@ public class Projectiles {
 	//-------------------------------------
 	//Other methods
 	
+	//Set projectile to inactive
+	public void restartDefault()
+	{
+		status_ = false;
+	}
+	
+	//
+	public void restart(int midPointX, int midPointY, int radius)
+	{
+		status_ = true;
+		if((int)(Math.random()*100)<=10)
+			value_ = 12;
+		else
+			value_ = -(1 + (int)(Math.random() * 3))*2;
+		
+		angle_ = (float)Math.random()* 360;
+		sinAngle_ = (float)Math.sin(angle_ * Math.PI / 180);
+		cosAngle_ = (float)Math.cos(angle_ * Math.PI / 180);
+		position_ = new Vector2 (midPointX + cosAngle_ * radius, midPointY + sinAngle_* radius);
+		float temp = (float)Math.random() * 100 + 40;
+		speed_ = new Vector2 (temp * cosAngle_ / value_, temp * sinAngle_ / value_);
+	}
+	
 	//Returns distance between projectile and mid
-	public float distance(float midPointY, float midPointX)
+	public float distance(float midPointX, float midPointY)
 	{
 		return (float)Math.sqrt ((midPointX-position_.x)*(midPointX-position_.x) + (midPointY-position_.y)*(midPointY-position_.y));
 	}

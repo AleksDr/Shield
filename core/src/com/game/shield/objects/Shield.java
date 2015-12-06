@@ -9,9 +9,10 @@ public class Shield {
 	private float angle_;
 	private float radius_;
 	
-	//Constants for the min and max shield capacity
-	private final int minCapacity_ = 5;
-	private final int maxCapacity_ = 180;
+	//Constant fields
+	
+	private final float minCapacity_ = 10;
+	private final float maxCapacity_ = 180;
 	
 	//-------------------------------------
 	//Constructors, getters, setters
@@ -21,6 +22,16 @@ public class Shield {
 		capacity_ = capacity;
 		angle_ = angle;
 		radius_ = radius;
+	}
+	
+	public float getMinCapacity()
+	{
+		return minCapacity_;
+	}
+	
+	public float getMaxCapcacity()
+	{
+		return maxCapacity_;
 	}
 	
 	public float getCapacity()
@@ -56,6 +67,14 @@ public class Shield {
 	//-------------------------------------
 	//Other methods
 	
+	//Reboots the shield
+	public void onRestart(float capacity, float angle, float radius)
+	{
+		capacity_ = capacity;
+		angle_ = angle;
+		radius_ = radius;
+	}
+	
 	//Reduces(increases) the capacity of the shield
 	public void changeCapacity(float dCapacity)
 	{
@@ -63,17 +82,9 @@ public class Shield {
 		if(capacity_ < minCapacity_)
 			capacity_ = minCapacity_;
 		if(capacity_ > maxCapacity_)
-			capacity_ = maxCapacity_;
-			
+			capacity_ = maxCapacity_;	
 	}
-	
-	//Reduces(increases) the angle of the shield
-	public void changeAngle(float dAngle)
-	{
-		angle_ = (angle_ + dAngle) % 360;
 		
-	}
-	
 	//Changing the direction of shield due to your click
 	public void onClick(float x, float y, int midPointX, int midPointY)
 	{

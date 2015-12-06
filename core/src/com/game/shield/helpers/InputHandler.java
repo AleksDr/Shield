@@ -48,9 +48,12 @@ public class InputHandler implements InputProcessor{
 	{
 		if(world_.isRunning())
 		{
-			world_.getShield().onClick( screenX,screenY, world_.getMidPointX(), world_.getMidPointY());
+			if(screenX > world_.getMidPointX() && screenY < 40)
+				world_.soundSwitch();
+			else if(screenY>40)
+				world_.getShield().onClick(screenX, screenY, world_.getMidPointX(), world_.getMidPointY());
 		}
-		else if(world_.isGameOver())
+		else if(world_.isGameOver()||world_.isHighScore())
 		{
 			world_.reStart();
 		}

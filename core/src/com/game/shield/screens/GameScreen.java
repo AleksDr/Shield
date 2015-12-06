@@ -14,15 +14,13 @@ public class GameScreen implements Screen
 	private GameWorld world_;
 	private GameRenderer renderer_;
 	
-	
 	//-------------------------------------
 	//Constructors, getters, setters
 	
     
-    public GameScreen() {
+    public GameScreen() 
+    {
         Gdx.app.log("GameScreen", "Attached");
-        float screenWidth = Gdx.graphics.getWidth();
-		float screenHeight = Gdx.graphics.getHeight();
 		float gameWidth = Gdx.graphics.getWidth();
 		float gameHeight = Gdx.graphics.getHeight();
 		int midPointX = (int) (gameWidth / 2);
@@ -37,38 +35,45 @@ public class GameScreen implements Screen
 	//Other methods
 
     @Override
-    public void render(float delta) {
+    public void render(float delta) 
+    {
         world_.update(delta);
         renderer_.render();
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(int width, int height) 
+    {
         Gdx.app.log("GameScreen", "resizing");
     }
 
     @Override
-    public void show() {
+    public void show() 
+    {
         Gdx.app.log("GameScreen", "show called");
     }
 
     @Override
-    public void hide() {
+    public void hide() 
+    {
         Gdx.app.log("GameScreen", "hide called");     
     }
 
     @Override
-    public void pause() {
+    public void pause() 
+    {
         Gdx.app.log("GameScreen", "pause called");        
     }
 
     @Override
-    public void resume() {
+    public void resume() 
+    {
         Gdx.app.log("GameScreen", "resume called");       
     }
 
     @Override
-    public void dispose() {
+    public void dispose() 
+    {
     }
 
 }
